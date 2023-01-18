@@ -48,6 +48,13 @@ print_volume() {
 }
 
 
+print_mem(){
+
+	mem="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+	echo -e "$mem"	
+
+}
+
 
 
 #!/bin/bash
@@ -114,7 +121,7 @@ print_bat(){
 
 
 print_date(){
-	date '+%Y-%m-%d %H:%M:%S'
+	date '+%Y-%m-%d  %a  %H:%M:%S'
 }
 
 
@@ -149,7 +156,7 @@ vel_recv=$(get_velocity $received_bytes $old_received_bytes $now)
 vel_trans=$(get_velocity $transmitted_bytes $old_transmitted_bytes $now)
 
 
-xsetroot -name "    $vel_recv    $vel_trans  $(dwm_alsa)  $(print_bat)  |  $(show_record)$(print_date) "
+xsetroot -name "$(print_mem)  ⬇️ $vel_recv  ⬆️ $vel_trans  $(dwm_alsa)  $(print_bat)  |  $(show_record)$(print_date) "
 
 # Update old values to perform new calculations
 old_received_bytes=$received_bytes
